@@ -8,7 +8,7 @@
  * @license GNU/GPL version 2 or any later version
  * @see https://github.com/nukeviet The NukeViet CMS GitHub project
  */
-
+echo 'phap ne';
 if (isset($_GET['response_headers_detect'])) {
     if ((isset($_SERVER['HTTPS']) and (strtolower($_SERVER['HTTPS']) == 'on' or $_SERVER['HTTPS'] == '1')) or $_SERVER['SERVER_PORT'] == 443) {
         header('x-is-https: 1');
@@ -128,8 +128,8 @@ if (preg_match($global_config['check_module'], $module_name)) {
         if (file_exists($include_file)) {
             if (empty($global_config['switch_mobi_des'])) {
                 $global_config['array_theme_type'] = array_diff($global_config['array_theme_type'], [
-                        'm'
-                    ]);
+                    'm'
+                ]);
             }
             // Tùy chọn kiểu giao diện
             if ($nv_Request->isset_request('nv' . NV_LANG_DATA . 'themever', 'get')) {
@@ -229,15 +229,15 @@ if (preg_match($global_config['check_module'], $module_name)) {
                 $theme_type = '';
                 $_theme_mobile = empty($module_info['mobile']) ? $global_config['mobile_theme'] : (($module_info['mobile'] == ':pcsite') ? $global_config['site_theme'] : (($module_info['mobile'] == ':pcmod') ? $module_info['theme'] : $module_info['mobile']));
                 if (
-                        (
+                    (
                             // Giao diện mobile tự động nhận diện dựa vào client
-                            ($client_info['is_mobile'] and in_array('m', $global_config['array_theme_type'], true)
-                                and (empty($global_config['current_theme_type']) or empty($global_config['switch_mobi_des'])))
-                            // Giao diện mobile lấy từ chuyển đổi giao diện
-                            or ($global_config['current_theme_type'] == 'm' and !empty($global_config['switch_mobi_des']))
-                        )
-                        and !empty($_theme_mobile) and file_exists(NV_ROOTDIR . '/themes/' . $_theme_mobile . '/theme.php')
-                    ) {
+                        ($client_info['is_mobile'] and in_array('m', $global_config['array_theme_type'], true)
+                            and (empty($global_config['current_theme_type']) or empty($global_config['switch_mobi_des'])))
+                        // Giao diện mobile lấy từ chuyển đổi giao diện
+                        or ($global_config['current_theme_type'] == 'm' and !empty($global_config['switch_mobi_des']))
+                    )
+                    and !empty($_theme_mobile) and file_exists(NV_ROOTDIR . '/themes/' . $_theme_mobile . '/theme.php')
+                ) {
                     $global_config['module_theme'] = $_theme_mobile;
                     $is_mobile = true;
                     $theme_type = 'm';
@@ -301,8 +301,8 @@ if (preg_match($global_config['check_module'], $module_name)) {
                 $_themeConfig = nv_object2array(simplexml_load_file(NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/config.ini'));
                 if (isset($_themeConfig['positions']['position']['name'])) {
                     $theme_config_positions = [
-                            $_themeConfig['positions']['position']
-                        ];
+                        $_themeConfig['positions']['position']
+                    ];
                 } elseif (isset($_themeConfig['positions']['position'])) {
                     $theme_config_positions = $_themeConfig['positions']['position'];
                 } else {
@@ -311,9 +311,9 @@ if (preg_match($global_config['check_module'], $module_name)) {
                     if (preg_match_all('/<position>[\t\n\s]+<name>(.*?)<\/name>[\t\n\s]+<tag>(\[[a-zA-Z0-9_]+\])<\/tag>[\t\n\s]+<\/position>/s', $_ini_file, $_m)) {
                         foreach ($_m[1] as $_key => $value) {
                             $theme_config_positions[] = [
-                                    'name' => $value,
-                                    'tag' => $_m[2][$_key]
-                                ];
+                                'name' => $value,
+                                'tag' => $_m[2][$_key]
+                            ];
                         }
                     }
                 }
@@ -371,8 +371,8 @@ if (preg_match($global_config['check_module'], $module_name)) {
             $sth->execute();
 
             nv_insert_notification('modules', 'auto_deactive_module', [
-                    'custom_title' => $site_mods[$module_name]['custom_title']
-                ]);
+                'custom_title' => $site_mods[$module_name]['custom_title']
+            ]);
             $nv_Cache->delMod('modules');
         }
     } elseif (isset($sys_mods[$module_name])) {
